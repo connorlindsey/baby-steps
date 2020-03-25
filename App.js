@@ -8,7 +8,7 @@ import Dashboard from "./src/views/Dashboard"
 import ListBabies from "./src/views/ListBabies"
 import ListTimers from "./src/views/ListTimers"
 import RecordFeeding from "./src/views/RecordFeeding"
-import Summary from "./src/views/RecordFeeding"
+import Summary from "./src/views/Summary"
 import { StateProvider } from './src/hooks/store.js';
 
 const Stack = createStackNavigator()
@@ -17,7 +17,12 @@ export default function App() {
   return (
     <StateProvider>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator
+          screenOptions={{
+            headerTintColor: "#242424",
+            headerBackTitle: ' '
+          }}
+        >
           <Stack.Screen name='Dashboard' component={Dashboard} options={{ title: "Home"}} />
           <Stack.Screen name='CreateTimer' component={CreateTimer} options={{ title: "New Timer"}} />
           <Stack.Screen name='CreateBaby' component={CreateBaby} options={{ title: "New Baby"}} />
