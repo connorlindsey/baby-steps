@@ -1,18 +1,47 @@
 import React from "react"
 import { Container } from "../styles/Layout"
-import { FlatList, Text, Image, View } from "react-native"
+import { FlatList, Text, StyleSheet, View } from "react-native"
 import useStore from "../hooks/useStore"
 import { Button } from "../styles/Button"
 import { TouchableHighlight } from "react-native-gesture-handler"
+import Icon from "react-native-vector-icons/Feather"
 
-const ListTimers = ({ navigation }) => {
+const styles = StyleSheet.create({
+  card: {
+    flexDirection: "row",
+    borderRadius: 4,
+    backgroundColor: "#F9F9F9",
+    marginBottom: 24,
+  },
+  icon: {
+  }
+})
+
+const ListTimers = ({ route, navigation }) => {
+  const timerType = route.params
   const { state, dispath } = useStore()
+
+  let key = "";
+  switch (timerType) {
+    case "Feeding":
+      key = "eat";
+      break;
+    case "Diaper":
+      key = "diaper"
+      break;
+    case "Sleep":
+      key = "sleep";
+      break;
+    default:
+      key = "eat";
+  }
 
   return (
     <Container>
+      <Text>{timerType} Timers</Text>
       <View>
         <FlatList
-          data={state.timers}
+          data={state.timers[key]}
           renderItem={({ item }) => (
             <View
               style={{
@@ -21,14 +50,17 @@ const ListTimers = ({ navigation }) => {
                 backgroundColor: "#F9F9F9",
                 marginBottom: 24,
                 padding: 16,
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                alignItems: "center"
               }}>
               <Text>
-                {item.type} - {item.frequency}
+                Every {item.hours} hours
               </Text>
-              <TouchableHighlight onPress={() => navigation.navigate("CreateTimer", item)}>
-                <Text>Edit</Text>
-              </TouchableHighlight>
+              <Icon 
+                style={styles.icon} 
+                name="edit-3" size={24} 
+                color="#ACACAC" 
+                onPress={() => navigation.navigate("CreateTimer", item)} />
             </View>
           )}
           keyExtractor={item => item.id}

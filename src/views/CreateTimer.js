@@ -4,11 +4,13 @@ import { Container } from "../styles/Layout"
 import { Button } from "../styles/Button"
 import TimePicker from '../components/TimePicker';
 
-const CreateTimer = ({ navigation }) => {
-  const [time, setTime] = useState({
+const CreateTimer = ({ route, navigation }) => {
+  const timerToEdit = route.params || null
+  const initialState = timerToEdit || {
     hours: 0,
     minutes: 0,
-  });
+  }
+  const [time, setTime] = useState(initialState);
 
   return (
     <Container>

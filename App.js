@@ -23,10 +23,10 @@ export default function App() {
             headerBackTitle: ' '
           }}
         >
-          <Stack.Screen name='Dashboard' component={Dashboard} options={{ title: "Home"}} />
+          <Stack.Screen name='Dashboard' component={Dashboard} options={{ title: " ", headerStyle: { height: 0 }}} />
           <Stack.Screen name='CreateTimer' component={CreateTimer} options={{ title: "New Timer"}} />
           <Stack.Screen name='CreateBaby' component={CreateBaby} options={{ title: "New Baby"}} />
-          <Stack.Screen name='RecordFeeding' component={RecordFeeding} options={{ title: "Feeding"}} />
+          <Stack.Screen name='RecordFeeding' component={RecordFeeding} options={{ title: "New Feeding"}} />
           <Stack.Screen name='ListBabies' component={ListBabies} options={{ title: "Baby Info"}} />
           <Stack.Screen name='ListTimers' component={ListTimers} options={{ title: "Timers"}} />
           <Stack.Screen name='Summary' component={Summary} options={{ title: "Summary"}} />

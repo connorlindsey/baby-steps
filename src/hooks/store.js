@@ -1,20 +1,27 @@
 import React, {createContext, useReducer} from 'react';
 
 const initialState = {
+  currentBaby: "1", // ID of current baby to display
   babies: [
     {
       id: "1",
       name: "Claire",
-      age: "15 months"
+      age: "15 months",
+      gender: "Girl",
+      image: "https://source.unsplash.com/1600x900/?baby,toddler,girl"
     }
   ],
-  timers: [
-    {
-      id: "1",
-      type: "Feeding",
-      frequency: "Every 2 hours"
-    }
-  ],
+  timers: {
+    eat: [
+      {
+        id: "1",
+        hours: 2,
+        minutes: 0,
+      }
+    ],
+    sleep: [],
+    diaper: [],
+  },
   data: [
     {
       date: "Mar 13 2020",
@@ -64,6 +71,11 @@ const StateProvider = ( { children } ) => {
         return newState;
       case 'update-baby':
         return state;
+      case 'view-baby':
+        return {
+          ...state,
+          currentBaby: action.payload
+        }
       default:
         throw new Error("Invalid Action Type");
     };

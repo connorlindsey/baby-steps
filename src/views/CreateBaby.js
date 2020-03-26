@@ -25,9 +25,7 @@ const CreateBaby = ({ navigation, route }) => {
   }
 
   const handleSubmit = () => {
-    console.log("Making a baby...")
     dispatch({ type: "create-baby", payload: formData })
-    console.log("Oh yeah")
     navigation.navigate("ListBabies")
   }
 
