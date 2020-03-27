@@ -13,32 +13,33 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F9F9",
     marginBottom: 24,
   },
-  icon: {
-  }
+  icon: {},
 })
 
 const ListTimers = ({ route, navigation }) => {
   const timerType = route.params
   const { state, dispath } = useStore()
 
-  let key = "";
+  let key = ""
   switch (timerType) {
     case "Feeding":
-      key = "eat";
-      break;
+      key = "eat"
+      break
     case "Diaper":
       key = "diaper"
-      break;
+      break
     case "Sleep":
-      key = "sleep";
-      break;
+      key = "sleep"
+      break
     default:
-      key = "eat";
+      key = "eat"
   }
 
   return (
     <Container>
-      <Text>{timerType} Timers</Text>
+      <Text style={{ fontSize: 24, marginBottom: 16, fontFamily: "m-500" }}>
+        {timerType} Timers
+      </Text>
       <View>
         <FlatList
           data={state.timers[key]}
@@ -51,22 +52,22 @@ const ListTimers = ({ route, navigation }) => {
                 marginBottom: 24,
                 padding: 16,
                 justifyContent: "space-between",
-                alignItems: "center"
+                alignItems: "center",
               }}>
-              <Text>
-                Every {item.hours} hours
-              </Text>
-              <Icon 
-                style={styles.icon} 
-                name="edit-3" size={24} 
-                color="#ACACAC" 
-                onPress={() => navigation.navigate("CreateTimer", item)} />
+              <Text style={{ fontSize: 16, fontFamily: "m-600" }}>Every {item.hours} hours</Text>
+              <Icon
+                style={styles.icon}
+                name='edit-3'
+                size={24}
+                color='#ACACAC'
+                onPress={() => navigation.navigate("CreateTimer", item)}
+              />
             </View>
           )}
           keyExtractor={item => item.id}
           ListEmptyComponent={
-            <View style={{ marginBottom: 24 }}>
-              <Text>Make a timer below to get started</Text>
+            <View style={{ marginBottom: 24, fontFamily: "m-500" }}>
+              <Text style={{ fontSize: 18 }}>Make a timer below to get started</Text>
             </View>
           }
         />

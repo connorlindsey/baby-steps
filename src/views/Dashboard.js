@@ -3,7 +3,7 @@ import { View, Image, Text, StyleSheet } from "react-native"
 import useStore from "../hooks/useStore"
 import { Container } from "../styles/Layout"
 import Icon from "react-native-vector-icons/Feather"
-import { TouchableHighlight, TouchableWithoutFeedback } from "react-native-gesture-handler"
+import { TouchableWithoutFeedback } from "react-native-gesture-handler"
 
 const styles = StyleSheet.create({
   row: {
@@ -19,18 +19,21 @@ const styles = StyleSheet.create({
   },
   feeding: {
     fontSize: 24,
-    color: "#FDE230",
+    color: "#F2AE00",
     marginHorizontal: 16,
+    fontFamily: "m-500"
   },
   diaper: {
     fontSize: 24,
     color: "#62A8F9",
     marginHorizontal: 16,
+    fontFamily: "m-500"
   },
   sleep: {
     fontSize: 24,
     color: "#D185F4",
     marginHorizontal: 16,
+    fontFamily: "m-500"
   },
   timer: {
     opacity: 0.8,
@@ -48,6 +51,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     letterSpacing: 0.5,
     color: "#171717",
+    fontFamily: "m-600"
   },
   sheet: {
     borderTopLeftRadius: 24,
@@ -57,18 +61,25 @@ const styles = StyleSheet.create({
     minHeight: "100%",
     display: "flex",
     justifyContent: "flex-start",
+    marginTop: -25,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -3 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
   },
   icon: {
     padding: 8,
   },
   babyName: {
     fontSize: 24,
-    color: "#333",
+    color: "#fff",
+    fontFamily: "m-600"
   },
   babyAge: {
     fontSize: 14,
     textTransform: "uppercase",
-    color: "#333",
+    color: "#fff",
+    fontFamily: "m-600"
   },
 })
 
@@ -99,12 +110,12 @@ const Dashboard = ({ navigation }) => {
     <View>
       {/* Baby Info */}
       <TouchableWithoutFeedback onPress={() => navigation.navigate("ListBabies")}>
-        <View style={{ height: 250 }}>
+        <View style={{ height: 275 }}>
           <Image
             source={{ uri: baby.image }}
-            style={{ height: 250, width: "100%", position: "absolute" }}
+            style={{ height: 275, width: "100%", position: "absolute" }}
           />
-          <View style={{ position: "absolute", bottom: 8, left: 8 }}>
+          <View style={{ position: "absolute", bottom: 33, left: 8 }}>
             <Text style={styles.babyName}>{baby.name}</Text>
             <Text style={styles.babyAge}>{baby.age}</Text>
           </View>
@@ -121,14 +132,14 @@ const Dashboard = ({ navigation }) => {
           <TouchableWithoutFeedback
             style={styles.row2}
             onPress={() => navigation.navigate("RecordFeeding")}>
-            <Icon styles={styles.icon} name='battery' size={28} color='#FDE230' />
+            <Icon styles={styles.icon} name='battery' size={28} color='#F2AE00' />
             <Text style={styles.feeding}>Feeding</Text>
           </TouchableWithoutFeedback>
           <Icon
             style={styles.timer}
             name='clock'
             size={24}
-            color='#FDE230'
+            color='#F2AE00'
             onPress={() => navigation.navigate("ListTimers", "Feeding")}
           />
         </View>
@@ -137,7 +148,7 @@ const Dashboard = ({ navigation }) => {
         <View style={styles.row}>
           <TouchableWithoutFeedback
             style={styles.row2}
-            onPress={() => navigation.navigate("RecordFeeding")}>
+            onPress={() => navigation.navigate("RecordDiaper")}>
             <Icon styles={styles.icon} name='cloud-rain' size={28} color='#62A8F9' />
             <Text style={styles.diaper}>Diaper</Text>
           </TouchableWithoutFeedback>
@@ -154,7 +165,7 @@ const Dashboard = ({ navigation }) => {
         <View style={styles.row}>
           <TouchableWithoutFeedback
             style={styles.row2}
-            onPress={() => navigation.navigate("RecordFeeding")}>
+            onPress={() => navigation.navigate("RecordSleep")}>
             <Icon styles={styles.icon} name='moon' size={28} color='#D185F4' />
             <Text style={styles.sleep}>Sleep</Text>
           </TouchableWithoutFeedback>

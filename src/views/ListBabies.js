@@ -7,6 +7,12 @@ import Icon from "react-native-vector-icons/Feather"
 import { TouchableWithoutFeedback } from "react-native-gesture-handler"
 
 const styles = StyleSheet.create({
+  title: {
+    marginTop: 64,
+    fontSize: 24,
+    marginBottom: 24,
+    fontFamily: "m-500"
+  },
   card: {
     flexDirection: "row",
     borderRadius: 4,
@@ -18,6 +24,19 @@ const styles = StyleSheet.create({
     bottom: 8,
     right: 8,
   },
+  name: {
+    color: "#31bfb7",
+    fontSize: 22,
+    fontWeight: "700",
+    fontFamily: "m-700"
+  },
+  age: {
+    fontSize: 16,
+    textTransform: "uppercase",
+    fontWeight: "400",
+    letterSpacing: .5,
+    fontFamily: "m-500"
+  }
 })
 
 const ListBabies = ({ navigation }) => {
@@ -30,7 +49,7 @@ const ListBabies = ({ navigation }) => {
 
   return (
     <Container>
-      <Text>Your Babies</Text>
+      <Text style={styles.title}>Your Babies</Text>
       <View>
         <FlatList
           data={state.babies}
@@ -39,8 +58,8 @@ const ListBabies = ({ navigation }) => {
               <TouchableWithoutFeedback onPress={() => viewBaby(item.id)}>
                 <Image
                   style={{
-                    width: 125,
-                    height: 150,
+                    width: 150,
+                    height: 175,
                     borderBottomLeftRadius: 4,
                     borderTopLeftRadius: 4,
                   }}
@@ -49,8 +68,8 @@ const ListBabies = ({ navigation }) => {
               </TouchableWithoutFeedback>
               <TouchableWithoutFeedback onPress={() => viewBaby(item.id)}>
                 <View style={{ padding: 16 }}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.age}</Text>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.age}>{item.age}</Text>
                 </View>
               </TouchableWithoutFeedback>
               <Icon

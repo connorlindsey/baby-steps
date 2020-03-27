@@ -7,6 +7,7 @@ const StyledText = styled.Text`
   font-size: 19px;
   height: 42px;
   line-height: 42px;
+  font-family: "m-600";
 `
 
 const styles = StyleSheet.create({
@@ -16,6 +17,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
+    fontFamily: "m-500"
   }
 })
 

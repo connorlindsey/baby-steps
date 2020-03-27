@@ -9,6 +9,7 @@ const Input = styled.TextInput`
   font-size: 16px;
   color: #1c1c1c;
   margin-bottom: 24px;
+  font-family: "m-500";
 `
 
 export { Input }

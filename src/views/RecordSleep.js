@@ -4,12 +4,12 @@ import { Button } from "../styles/Button"
 import { Input } from "../styles/Form"
 import useStore from "../hooks/useStore"
 
-const RecordFeeding = ({ navigation }) => {
-  const { state, dispatch } = useStore()
+const RecordSleep = ({ navigation }) => {
+  const { dispatch } = useStore()
   const [formData, setFormData] = useState({
     time: "",
     amount: "",
-    notes: ""
+    notes: "",
   })
 
   const handleInput = (text, field) => {
@@ -19,13 +19,8 @@ const RecordFeeding = ({ navigation }) => {
     })
   }
 
-  const saveFeeding = () => {
-    console.log('formData', formData)
-    let num = parseInt(formData.amount) || 0;
-    let payload = { ...formData }
-    console.log('payload', payload)
-    payload.amount = num;
-    dispatch({ type: "create-feeding", payload })
+  const saveSleep = () => {
+    dispatch({ type: "create-sleep-record", payload: formData })
     navigation.navigate("Dashboard")
   }
 
@@ -38,18 +33,17 @@ const RecordFeeding = ({ navigation }) => {
       />
       <Input
         onChangeText={text => handleInput(text, "amount")}
-        placeholder='Amount'
+        placeholder='Hours Slept'
         placeholderTextColor='#353535'
-        keyboardType="numeric"
       />
       <Input
         onChangeText={text => handleInput(text, "notes")}
         placeholder='Notes'
         placeholderTextColor='#353535'
       />
-      <Button onPress={saveFeeding}>Save</Button>
+      <Button onClick={saveSleep}>Save</Button>
     </Container>
   )
 }
 
-export default RecordFeeding
+export default RecordSleep

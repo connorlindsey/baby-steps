@@ -12,59 +12,92 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   divider: {
-    width: 2, 
+    width: 2,
     backgroundColor: "#31BFB7",
-    marginLeft: 8,
-    marginRight: 8
+    marginLeft: 16,
+    marginRight: 18,
   },
   column: {
-    flexDirection: "column"
-  }
+    flexDirection: "column",
+  },
+  date: {
+    width: 40,
+    textTransform: "uppercase",
+    textAlign: "center",
+    fontSize: 16,
+    fontFamily: "m-400",
+  },
+  title: {
+    fontSize: 14,
+    textTransform: "uppercase",
+    width: 80,
+    fontFamily: "m-600",
+  },
+  info: {
+    fontSize: 14,
+    fontFamily: "m-500",
+  },
 })
 
-const Summary = ({ navigation }) => {
-  const { state, dispatch } = useStore()
+const Summary = () => {
+  const { state } = useStore()
 
-  const sumArray = (arr) => {
-    return arr.reduce((acc, item) => acc + item.amt, 0);
+  const sumArray = arr => {
+    return arr.reduce((acc, item) => acc + item.amt, 0)
   }
 
-  const sumDiapers =  (arr) => {
-    let wet = 0;
-    let dirty = 0;
+  const sumDiapers = arr => {
+    let wet = 0
+    let dirty = 0
     for (let d of arr) {
       if (d.type === "wet") {
-        wet++;
+        wet++
       } else {
-        dirty++;
+        dirty++
       }
     }
     return `${arr.length} times / ${wet} wet, ${dirty} dirty`
   }
-  
+
   return (
     <Container>
-      <Text>Summary</Text>
-        <FlatList
-          data={state.data}
-          renderItem={({ item }) => (
+      <FlatList
+        data={Object.keys(state.data)}
+        renderItem={({ item }) => {
+          let i = state.data[item]
+          return (
             <View style={styles.card}>
-              <Text>{item.date}</Text>
+              <Text style={styles.date}>{item}</Text>
               <View style={styles.divider} />
               <View style={styles.column}>
-                <Text>EAT: {sumArray(item.eat)} oz. / {item.eat.length} Feeding{item.eat.length > 1 && "s"}</Text>
-                <Text>SLEEP: {sumArray(item.sleep)} hours / {item.sleep.length} Time{item.sleep.length > 1 && "s"}</Text>
-                <Text>DIAPER: {sumDiapers(item.diaper)}</Text>
+                <View style={{ flexDirection: "row", marginBottom: 16 }}>
+                  <Text style={styles.title}>Eat</Text>
+                  <Text style={styles.info}>
+                    {sumArray(i.eat)} oz. / {i.eat.length} Feeding{i.eat.length > 1 && "s"}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", marginBottom: 16 }}>
+                  <Text style={styles.title}>Sleep </Text>
+                  <Text style={styles.info}>
+                    {sumArray(i.sleep)} hours / {i.sleep.length} Time
+                    {i.sleep.length > 1 && "s"}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", marginBottom: 16 }}>
+                  <Text style={styles.title}>Diaper </Text>
+                  <Text style={styles.info}>{sumDiapers(i.diaper)}</Text>
+                </View>
               </View>
             </View>
-          )}
-          keyExtractor={item => item.date}
-          ListEmptyComponent={
-            <View>
-              <Text>No data to display</Text>
-            </View>
-          }
-        />
+          )
+        }}
+        keyExtractor={item => item}
+        ListEmptyComponent={
+          <View>
+            <Text>No data to display</Text>
+          </View>
+        }
+      />
     </Container>
   )
 }

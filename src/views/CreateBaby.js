@@ -31,6 +31,7 @@ const CreateBaby = ({ navigation, route }) => {
 
   return (
     <Container>
+      <Text style={{ fontSize: 24, marginBottom: 16, fontFamily: "m-500" }}>Baby Info</Text>
       <Input
         onChangeText={text => handleInput(text, "name")}
         value={formData.name}

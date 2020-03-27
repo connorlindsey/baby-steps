@@ -22,9 +22,9 @@ const initialState = {
     sleep: [],
     diaper: [],
   },
-  data: [
-    {
-      date: "Mar 13 2020",
+  data: {
+    "Mar 25 2020": {
+      id: "1",
       eat: [
         { id: "1", amt: 5},
         { id: "2", amt: 4},
@@ -37,8 +37,8 @@ const initialState = {
 
       ]
     },
-    {
-      date: "Mar 12 2020",
+    "Mar 24 2020": {
+      id: "2",
       eat: [
         { id: "1", amt: 5},
         { id: "2", amt: 4},
@@ -52,16 +52,28 @@ const initialState = {
         { id: "3", type: "wet" },
       ]
     },
-  ]
+  }
 };
 const store = createContext(initialState);
 const { Provider } = store;
 
+/*
+  TODO: Record Feeding
+  TODO: Record Diaper
+  TODO: Record Sleep
+  TODO: Create Timer
+  TODO: Edit Timer
+  TODO: Delete Timer
+  TODO: Edit baby
+  TODO: Delete baby
+*/
+
 const StateProvider = ( { children } ) => {
   const [state, dispatch] = useReducer((state, action) => {
+    let newState;
     switch(action.type) {
       case 'create-baby':
-        const newState = {
+        newState = {
           ...state,
           babies: [...state.babies, {
             ...action.payload,
@@ -76,6 +88,28 @@ const StateProvider = ( { children } ) => {
           ...state,
           currentBaby: action.payload
         }
+      case 'create-feeding':
+        // Create date
+        var d = new Date();
+        let date = `${d.toLocaleString('default', { month: 'short' })} ${d.getDate()} ${d.getFullYear()}`
+        
+        // Add the date if it doesn't exist
+        if (!state.data.hasOwnProperty(date)) {
+          state.data[date] = {
+            id: Math.random().toString(),
+            eat: [],
+            sleep: [],
+            diaper: []
+          }
+        }
+
+        newState = { ...state }
+        console.log(action.payload)
+        newState.data[date].eat.push(action.payload);
+        console.log('newState.data[date]', newState.data[date])
+        return newState
+      case 'create-sleep-record':
+        return state
       default:
         throw new Error("Invalid Action Type");
     };
